@@ -12,7 +12,7 @@ Messenger::Messenger(QObject *parent) :
 void Messenger::start()
 {
     _udp.bind(2880, QUdpSocket::ReuseAddressHint);
-    _timerdiscovery.start(2000);
+    _timerdiscovery.start(5000);
 }
 
 void Messenger::setName(QString name)
