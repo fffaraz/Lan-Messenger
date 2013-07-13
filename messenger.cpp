@@ -48,7 +48,7 @@ void Messenger::onTimerdiscovery()
     QString packet = PCK_HEADER "DISCOVERY:" + _mypeer.ID();
     QHostAddress target = QHostAddress::Broadcast;
     logSent(packet, target);
-    _udp.writeDatagram(packet.toAscii(), target, 2880);
+    _udp.writeDatagram(packet.toUtf8(), target, 2880);
 
     // chekc for olds
     for(int i=0; i<_peers.count(); i++)
@@ -251,7 +251,7 @@ void Messenger::sendPM(QString text, QString to)
     }
     QString packet = PCK_HEADER "PM:" + _mypeer.ID() + ":" + text;
     logSent(packet, adr);
-    _udp.writeDatagram(packet.toAscii(), adr, 2880);
+    _udp.writeDatagram(packet.toUtf8(), adr, 2880);
 }
 
 void Messenger::sendRoom(QString text, QString room)
@@ -259,7 +259,7 @@ void Messenger::sendRoom(QString text, QString room)
     QString packet = PCK_HEADER "ROOM:" + room + ":" + _mypeer.ID() + ":" + text;
     QHostAddress target = QHostAddress::Broadcast;
     logSent(packet, target);
-    _udp.writeDatagram(packet.toAscii(), target, 2880);
+    _udp.writeDatagram(packet.toUtf8(), target, 2880);
 }
 
 void Messenger::joinRoom(QString room)
@@ -277,6 +277,6 @@ void Messenger::roomList(QString room)
     QString packet = PCK_HEADER "ROOMLIST:" + room + ":" + _mypeer.ID();
     QHostAddress target = QHostAddress::Broadcast;
     logSent(packet, target);
-    _udp.writeDatagram(packet.toAscii(), target, 2880);
+    _udp.writeDatagram(packet.toUtf8(), target, 2880);
 }
 
