@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>574</width>
-    <height>461</height>
+    <width>728</width>
+    <height>568</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -38,6 +38,23 @@
            <string>Voice Chat</string>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3">
+           <item>
+            <widget class="QRadioButton" name="rdoLow">
+             <property name="text">
+              <string>Low Q.</string>
+             </property>
+             <property name="checked">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QRadioButton" name="rdoHigh">
+             <property name="text">
+              <string>High Q.</string>
+             </property>
+            </widget>
+           </item>
            <item>
             <widget class="QPushButton" name="btnVoice">
              <property name="text">
@@ -98,7 +115,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>574</width>
+     <width>728</width>
      <height>21</height>
     </rect>
    </property>

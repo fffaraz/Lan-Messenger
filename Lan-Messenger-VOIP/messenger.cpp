@@ -60,6 +60,7 @@ void Messenger::onTimerdiscovery()
 {
     QString packet = PCK_HEADER "DISCOVERY:" + _mypeer.ID();
     //QHostAddress target = QHostAddress("224.1.2.3");
+    //QHostAddress target = QHostAddress("192.168.0.255");
     QHostAddress target = QHostAddress::Broadcast;
     logSent(packet, target);
     _udp.writeDatagram(packet.toUtf8(), target, 2880);

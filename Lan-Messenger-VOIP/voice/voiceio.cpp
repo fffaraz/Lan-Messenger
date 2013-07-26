@@ -6,8 +6,8 @@ VoiceIO::VoiceIO(QObject *parent) :
     isEnabled = false;
 
     QAudioFormat format;
-    format.setSampleRate(22050);
-    format.setSampleSize(16);
+    format.setSampleRate(8000); // 22050
+    format.setSampleSize(8);    // 16
     format.setChannelCount(1);
     format.setCodec("audio/pcm");
     format.setByteOrder(QAudioFormat::LittleEndian);

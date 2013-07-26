@@ -61,12 +61,13 @@ void PMWindow::on_btnVoice_clicked()
     static bool flag = true;
     if(flag)
     {
-        emit voiceTalk(true);
+        bool isHigh = ui->rdoHigh->isChecked();
+        emit voiceTalk(true, isHigh);
         ui->btnVoice->setText("Stop");
     }
     else
     {
-        emit voiceTalk(false);
+        emit voiceTalk(false, false);
         ui->btnVoice->setText("Start");
     }
     flag = ! flag;

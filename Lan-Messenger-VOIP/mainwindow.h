@@ -56,7 +56,7 @@ private slots:
     void onJoinRoom(QString room);
     void on_actionAbout_triggered();
     void on_actionJoin_triggered();
-    void onVoiceTalk(bool start);
+    void onVoiceTalk(bool start, bool isHigh);
 
 private:
     Ui::MainWindow *ui;

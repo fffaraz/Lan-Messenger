@@ -86,7 +86,7 @@ PMWindow* MainWindow::makePMWindow(QString title)
         pms.insert(title, newpm);
         pmr.insert(newpm, title);
         connect(newpm, SIGNAL(enteredText(QString)), this, SLOT(onPMSend(QString)));
-        connect(newpm, SIGNAL(voiceTalk(bool)), this, SLOT(onVoiceTalk(bool)));
+        connect(newpm, SIGNAL(voiceTalk(bool,bool)), this, SLOT(onVoiceTalk(bool,bool)));
         connect(newpm, SIGNAL(closedWindow()), this, SLOT(onPMClosed()));
         newpm->setWindowTitle(title);
         newpm->show();
@@ -126,8 +126,9 @@ void MainWindow::onPMSend(QString text)
     msgr->sendPM(text, pmr[to]);
 }
 
-void MainWindow::onVoiceTalk(bool start)
+void MainWindow::onVoiceTalk(bool start, bool isHigh)
 {
+    Q_UNUSED(isHigh);
     PMWindow* to = qobject_cast<PMWindow*>(sender());
     if(start)
         msgr->startVoice(pmr[to]);

@@ -43,7 +43,7 @@ public slots:
 
 signals:
     void enteredText(QString text);
-    void voiceTalk(bool start);
+    void voiceTalk(bool start, bool isHigh);
     void closedWindow();
 
 private slots:
