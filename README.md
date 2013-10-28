@@ -11,7 +11,5 @@ Lan Messenger v1.0 alpha
     Message board 
   
 
-Website : http://messenger.288.ir/
-
-
-
+Website : http://cms.frz.ir/lan-messenger/
+Download : http://frz.ir/dl/projects/Lan-Messenger/LanMessenger-VOIP.7z
