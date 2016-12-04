@@ -11,13 +11,13 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = LanMessenger
 TEMPLATE = app
 
-CONFIG += release
-QMAKE_CXXFLAGS += -std=c++0x
+CONFIG += release c++14
+#QMAKE_CXXFLAGS += -std=c++0x
 
 # STATIC LINKING
-CONFIG += static
-QMAKE_CXXFLAGS += -static -static-libgcc -static-libstdc++
-QMAKE_LFLAGS   += -static -static-libgcc -static-libstdc++
+#CONFIG += static
+#QMAKE_CXXFLAGS += -static -static-libgcc -static-libstdc++
+#QMAKE_LFLAGS   += -static -static-libgcc -static-libstdc++
 
 SOURCES += main.cpp\
         mainwindow.cpp \

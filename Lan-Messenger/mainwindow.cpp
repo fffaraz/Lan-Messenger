@@ -50,17 +50,17 @@ void MainWindow::onSetName(QString name)
 void MainWindow::onUpdateList()
 {
     ui->listUsers->clear();
-    QList<Peer>& peers = msgr->getPeers();
-    for(int i=0; i<peers.count(); i++)
-        ui->listUsers->addItem(peers[i].ID());
+	for (Peer &current : msgr->getPeers()) {
+		ui->listUsers->addItem(current.ID());
+	}
 }
 
 void MainWindow::onRoomListUpdated(QString room, QString msg)
 {
     QList<QString> ids;
-    QList<Peer>& peers = msgr->getRoomPeers(room);
-    for(int i=0; i<peers.count(); i++)
-        ids.append(peers[i].ID());
+	for (Peer &current : msgr->getRoomPeers(room)) {
+		ids.append(current.ID());
+	}
     makeRoomWindow(room)->updateList(ids);
     makeRoomWindow(room)->receivedPM("", msg);
 }

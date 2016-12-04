@@ -61,6 +61,9 @@ void Messenger::onTimerdiscovery()
     // room list
     for(int i=0; i<_rooms.count(); i++)
         roomList(_rooms[i]);
+	for (const QString &current: _rooms) {
+		roomList(current);
+	}
 
     for(int i=0; i<_rooms.count(); i++)
     {
@@ -88,9 +91,10 @@ void Messenger::onReadyRead()
         _udp.readDatagram(datagram.data(), datagram.size(), &sender, &senderPort);
 
         bool flag = true;
-        for(int i=0; i < _myips.count(); ++i)
-            if(sender.toString() == _myips[i].toString())
+		for(const QHostAddress &current : _myips)
+			if(sender.toString() == current.toString()) {
                 flag = false;
+			}
 
         if (flag)
         {
@@ -229,25 +233,28 @@ void Messenger::processTheDatagram(QByteArray data, QHostAddress sender)
         QString room = packet[3];
         QString from = packet[4];
         QString text = packet[5];
-        for(int i=6; i<packet.count(); i++)
+		for(int i=6; i<packet.count(); i++) {
             text += ":" + packet[i];
+		}
 
         bool found=false;
-        for(int i=0;i<_rooms.count(); i++)
+		for(int i=0;i<_rooms.count(); i++){
             if(_rooms[i] == room) found = true;
 
-        if(found)
+		}
+		if(found){
             emit receivedRoom(room, from, text);
+		}
     }
 }
 
 void Messenger::sendPM(QString text, QString to)
 {
     QHostAddress adr;
-    for(int i=0; i<_peers.count(); i++)
+	for(Peer &current : _peers)
     {
-        if(_peers[i].ID() == to)
-            adr = _peers[i].Host;
+		if(current.ID() == to)
+			adr = current.Host;
     }
     QString packet = PCK_HEADER "PM:" + _mypeer.ID() + ":" + text;
     logSent(packet, adr);
