@@ -24,8 +24,6 @@
 #include <QString>
 #include "peer.h"
 
-typedef QList<Peer> PeerList;
-
 class Messenger : public QObject
 {
     Q_OBJECT
@@ -56,7 +54,10 @@ private slots:
 
 
 private:
+	typedef QList<Peer> PeerList;
+
 	const QString PCK_HEADER {"288:0:"};
+	static constexpr quint16 port = 2880;
     Peer _mypeer;
     PeerList _peers;
     QUdpSocket _udp;
