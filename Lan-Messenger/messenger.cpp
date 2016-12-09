@@ -104,7 +104,7 @@ void Messenger::onReadyRead()
     }
 }
 
-void Messenger::log(QString data, QString dest, bool isSent)
+void Messenger::log(const QString data, const QString dest, const bool isSent)
 {
     QString msg;
     msg += isSent? "Sent     ":"Received ";
@@ -118,12 +118,12 @@ void Messenger::log(QString data, QString dest, bool isSent)
     return;
 }
 
-void Messenger::logSent(QString data, QHostAddress dest)
+void Messenger::logSent(const QString data, const QHostAddress dest)
 {
     return log(data, dest.toString(), true);
 }
 
-void Messenger::logReceived(QString data, QHostAddress dest)
+void Messenger::logReceived(const QString data, const QHostAddress dest)
 {
     return log(data, dest.toString(), false);
 }
@@ -138,7 +138,7 @@ Messenger::PeerList& Messenger::getRoomPeers(QString room)
     return _roomslist[room];
 }
 
-void Messenger::processTheDatagram(QByteArray data, QHostAddress sender)
+void Messenger::processTheDatagram(const QByteArray data, const QHostAddress sender)
 {
     QString str_packet = QString(data);
     QStringList packet = str_packet.split(':');
@@ -279,7 +279,7 @@ void Messenger::leaveRoom(QString room)
     _rooms.removeAll(room);
 }
 
-void Messenger::roomList(QString room)
+void Messenger::roomList(const QString room)
 {
 	QString packet = PCK_HEADER + "ROOMLIST:" + room + ":" + _mypeer.ID();
     QHostAddress target = QHostAddress::Broadcast;
