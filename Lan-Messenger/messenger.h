@@ -66,11 +66,11 @@ private:
     QList<QHostAddress> _myips;
     QList<QString> _rooms;
     QMap<QString, PeerList> _roomslist;
-    void log(const QString data, const QString dest, const bool isSent);
-    void logSent(QString data, QHostAddress dest);
-    void logReceived(QString data, QHostAddress dest);
-    void processTheDatagram(QByteArray data, QHostAddress sender);
-    void roomList(QString room);
+    void log(const QString &data, const QString &dest, const bool isSent);
+    void logSent(const QString &data, const QHostAddress &dest);
+    void logReceived(const QString &data, const QHostAddress &dest);
+    void processTheDatagram(const QByteArray &data, const QHostAddress &sender);
+    void roomList(const QString &room);
 };
 
 #endif // MESSENGER_H
