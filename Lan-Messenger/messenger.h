@@ -28,6 +28,8 @@ class Messenger : public QObject
 {
     Q_OBJECT
 public:
+    typedef QList<Peer> PeerList;
+
     explicit Messenger(QObject *parent = 0);
     QString Name();
     QString ID();
@@ -54,7 +56,6 @@ private slots:
 
 
 private:
-	typedef QList<Peer> PeerList;
 
 	const QString PCK_HEADER {"288:0:"};
 	static constexpr quint16 port = 2880;

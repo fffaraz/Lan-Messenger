@@ -128,12 +128,12 @@ void Messenger::logReceived(QString data, QHostAddress dest)
     return log(data, dest.toString(), false);
 }
 
-PeerList& Messenger::getPeers()
+Messenger::PeerList& Messenger::getPeers()
 {
     return _peers;
 }
 
-PeerList& Messenger::getRoomPeers(QString room)
+Messenger::PeerList& Messenger::getRoomPeers(QString room)
 {
     return _roomslist[room];
 }
