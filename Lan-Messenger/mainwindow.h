@@ -58,6 +58,7 @@ private slots:
     void onMenu(QAction* action);
     void onAbout();
     void onOptions();
+	void onExit();
 
 private:
     Ui::MainWindow *ui;

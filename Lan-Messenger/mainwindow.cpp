@@ -31,7 +31,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(msgr, SIGNAL(receivedPM(QString,QString)), this, SLOT(onReceivedPM(QString,QString)));
     connect(msgr, SIGNAL(receivedRoom(QString,QString,QString)), this, SLOT(onReceivedRoom(QString,QString,QString)));
     connect(ui->actionAbout, SIGNAL(triggered(bool)), this, SLOT(onAbout()));
-    connect(ui->actionOptions, SIGNAL(triggered(bool)), this, SLOT(onOptions()));
+	connect(ui->actionOptions, SIGNAL(triggered(bool)), this, SLOT(onOptions()));
+	connect(ui->actionExit, SIGNAL(triggered(bool)), this, SLOT(onExit()));
     dlgName->setModal(true);
     dlgName->setWindowTitle("You Nickname, Please");
     dlgName->show();
@@ -193,3 +194,7 @@ void MainWindow::onJoinRoom(QString room)
 }
 
 
+void MainWindow::onExit()
+{
+	exit(0);
+}
