@@ -19,6 +19,8 @@
 #define DIALOGABOUT_H
 
 #include <QDialog>
+#include <QUrl>
+#include <QDesktopServices>
 
 namespace Ui {
 class DialogAbout;
@@ -32,6 +34,11 @@ public:
     explicit DialogAbout(QWidget *parent = 0);
     ~DialogAbout();
     
+    private slots:
+        void link0();
+        void link1();
+        void link2();
+
 private:
     Ui::DialogAbout *ui;
 };

@@ -30,6 +30,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(msgr, SIGNAL(roomListUpdated(QString,QString)), this, SLOT(onRoomListUpdated(QString,QString)));
     connect(msgr, SIGNAL(receivedPM(QString,QString)), this, SLOT(onReceivedPM(QString,QString)));
     connect(msgr, SIGNAL(receivedRoom(QString,QString,QString)), this, SLOT(onReceivedRoom(QString,QString,QString)));
+    connect(ui->actionAbout, SIGNAL(triggered(bool)), this, SLOT(onAbout()));
+    connect(ui->actionOptions, SIGNAL(triggered(bool)), this, SLOT(onOptions()));
     dlgName->setModal(true);
     dlgName->setWindowTitle("You Nickname, Please");
     dlgName->show();
@@ -72,7 +74,7 @@ void MainWindow::on_listUsers_doubleClicked(const QModelIndex &index)
     makePMWindow(userid);
 }
 
-PMWindow* MainWindow::makePMWindow(QString title)
+PMWindow* MainWindow::makePMWindow(const QString &title)
 {
     if(pms.keys().contains(title))
     {
@@ -92,7 +94,7 @@ PMWindow* MainWindow::makePMWindow(QString title)
     }
 }
 
-RoomWindow* MainWindow::makeRoomWindow(QString title)
+RoomWindow* MainWindow::makeRoomWindow(const QString &title)
 {
     if(rms.keys().contains(title))
     {
@@ -166,13 +168,22 @@ void MainWindow::onMenu(QAction *action)
         joinroom->setWindowTitle("Room Name");
         joinroom->show();
     }
-    if(action->text()=="About")
-    {
-        DialogAbout* about = new DialogAbout(this);
-        about->setModal(true);
-        about->setWindowTitle("About 288 L.M.");
-        about->show();
-    }
+}
+
+void MainWindow::onAbout()
+{
+    DialogAbout* about = new DialogAbout(this);
+    about->setModal(true);
+    about->setWindowTitle("About 288 L.M.");
+    about->show();
+}
+
+void MainWindow::onOptions()
+{
+    DialogOptions* options = new DialogOptions();
+    options->setWindowTitle("Options");
+    options->show();
+    //TOOD add handler
 }
 
 void MainWindow::onJoinRoom(QString room)
@@ -180,3 +191,5 @@ void MainWindow::onJoinRoom(QString room)
     makeRoomWindow(room)->setFocus();
     msgr->joinRoom(room);
 }
+
+

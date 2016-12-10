@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>263</width>
-    <height>107</height>
+    <height>150</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -39,6 +39,9 @@
      <property name="text">
       <string>&lt;a href=&quot;mailto:fffaraz@gmail.com&quot;&gt;fffaraz@gmail.com&lt;/a&gt;</string>
      </property>
+     <property name="textFormat">
+      <enum>Qt::RichText</enum>
+     </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
      </property>
@@ -48,6 +51,9 @@
     <widget class="QLabel" name="label_4">
      <property name="text">
       <string>&lt;a href=&quot;http://frz.ir&quot;&gt;www.288.ir&lt;/a&gt;</string>
+     </property>
+     <property name="textFormat">
+      <enum>Qt::RichText</enum>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
@@ -59,8 +65,18 @@
      <property name="text">
       <string>&lt;a href=&quot;http://frz.ir&quot;&gt;www.FRZ.ir&lt;/a&gt;</string>
      </property>
+     <property name="textFormat">
+      <enum>Qt::RichText</enum>
+     </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="licence">
+     <property name="text">
+      <string>288 Lan Messenger is free software. </string>
      </property>
     </widget>
    </item>

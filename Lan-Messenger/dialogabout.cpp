@@ -23,9 +23,29 @@ DialogAbout::DialogAbout(QWidget *parent) :
     ui(new Ui::DialogAbout)
 {
     ui->setupUi(this);
+
 }
 
 DialogAbout::~DialogAbout()
 {
     delete ui;
+}
+
+void DialogAbout::link0()
+{
+    QUrl url{ui->label_2->text()};
+    QDesktopServices::openUrl(url);
+
+}
+
+void DialogAbout::link1()
+{
+    QUrl url{ui->label_2->text()};
+    QDesktopServices::openUrl(url);
+}
+
+void DialogAbout::link2()
+{
+    QUrl url{ui->label_2->text()};
+    QDesktopServices::openUrl(url);
 }

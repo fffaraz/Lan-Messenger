@@ -28,6 +28,7 @@
 #include "roomwindow.h"
 #include "dialogroom.h"
 #include "dialogabout.h"
+#include "dialogoptions.hpp"
 
 namespace Ui {
 class MainWindow;
@@ -55,6 +56,8 @@ private slots:
     void onReceivedRoom(QString room, QString from, QString text);
     void onJoinRoom(QString room);
     void onMenu(QAction* action);
+    void onAbout();
+    void onOptions();
 
 private:
     Ui::MainWindow *ui;
@@ -63,8 +66,8 @@ private:
     QMap<PMWindow*, QString> pmr;
     QMap<QString, RoomWindow*> rms;
     QMap<RoomWindow*, QString> rmr;
-    PMWindow* makePMWindow(QString title);
-    RoomWindow* makeRoomWindow(QString title);
+    PMWindow* makePMWindow(const QString &title);
+    RoomWindow* makeRoomWindow(const QString &title);
 };
 
 #endif // MAINWINDOW_H
