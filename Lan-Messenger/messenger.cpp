@@ -65,11 +65,11 @@ void Messenger::onTimerdiscovery()
 		roomList(current);
 	}
 
-    for(int i=0; i<_rooms.count(); i++)
+	for(int i = 0; i < _rooms.count(); i++)
     {
         QString room = _rooms[i];
         if(!_roomslist.contains(room)) continue;
-        for(int j=0; j<_roomslist[room].count(); j++)
+		for(int j = 0; j < _roomslist[room].count(); j++)
             if(_roomslist[room].at(j).Lastseen.secsTo(QTime::currentTime()) > 10)
             {
                 QString name = _roomslist[room][j].ID();
