@@ -142,7 +142,7 @@ void Messenger::processTheDatagram(const QByteArray &data, const QHostAddress &s
 {
     QString str_packet = QString(data);
     QStringList packet = str_packet.split(':');
-    if(packet.count()<4)
+    if(packet.count() < 4)
     {
         qWarning("Warning: Unknown Packet. ");
         return;
@@ -160,7 +160,7 @@ void Messenger::processTheDatagram(const QByteArray &data, const QHostAddress &s
     if(packet[2] == "DISCOVERY")
     {
         int found = -1;
-        for(int i=0; i<_peers.count(); i++)
+        for(int i = 0; i <_peers.count(); i ++)
             if(_peers[i].ID() == packet[3]) found = i;
         if(found == -1)
         {
@@ -224,7 +224,7 @@ void Messenger::processTheDatagram(const QByteArray &data, const QHostAddress &s
     {
         QString from = packet[3];
         QString text = packet[4];
-        for(int i=5; i<packet.count(); i++)
+        for(int i = 5; i < packet.count(); i++)
             text += ":" + packet[i];
         emit receivedPM(from, text);
     }
@@ -233,12 +233,12 @@ void Messenger::processTheDatagram(const QByteArray &data, const QHostAddress &s
         QString room = packet[3];
         QString from = packet[4];
         QString text = packet[5];
-		for(int i=6; i<packet.count(); i++) {
+        for(int i = 6; i < packet.count(); i++) {
             text += ":" + packet[i];
 		}
 
         bool found=false;
-		for(int i=0;i<_rooms.count(); i++){
+        for(int i = 0; i < _rooms.count(); i++){
             if(_rooms[i] == room) found = true;
 
 		}
