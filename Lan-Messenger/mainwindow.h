@@ -43,18 +43,18 @@ public:
     ~MainWindow();
 
 private slots:
-    void onSetName(QString name);
+	void onSetName(QString name);
     void onUpdateList();
-    void onRoomListUpdated(QString room, QString msg);
-    void onPMSend(QString text);
+	void onRoomListUpdated(QString room, QString msg);
+	void onPMSend(QString text);
     void onPMClosed();
-    void onRoomSend(QString text);
+	void onRoomSend(QString text);
     void onRoomClosed();
     void onRoomPM(QString id);
     void on_listUsers_doubleClicked(const QModelIndex &index);
-    void onReceivedPM(QString from, QString text);
-    void onReceivedRoom(QString room, QString from, QString text);
-    void onJoinRoom(QString room);
+	void onReceivedPM(QString from, QString text);
+	void onReceivedRoom(QString room, QString from, QString text);
+	void onJoinRoom(QString room);
     void onMenu(QAction* action);
     void onAbout();
     void onOptions();
