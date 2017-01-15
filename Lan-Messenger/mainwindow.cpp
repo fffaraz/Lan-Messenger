@@ -15,6 +15,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // 
 
+#include <memory>
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
@@ -41,6 +42,7 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
 	delete this->ui;
+	delete this->msgr;
 }
 
 void MainWindow::onSetName(QString name)
