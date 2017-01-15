@@ -32,6 +32,9 @@ DialogNickName::~DialogNickName()
 
 void DialogNickName::on_btnOk_clicked()
 {
-    emit setName(ui->txtName->text());
+	if (ui->txtName->text() == "") {
+		ui->txtName->setText("anonymous");
+	}
+	emit setName(ui->txtName->text());
     this->deleteLater();
 }
