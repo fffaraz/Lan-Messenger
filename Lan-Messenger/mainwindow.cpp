@@ -186,7 +186,6 @@ void MainWindow::onOptions()
     DialogOptions* options = new DialogOptions();
     options->setWindowTitle("Options");
     options->show();
-    //TOOD add handler
 }
 
 void MainWindow::onJoinRoom(QString room)
