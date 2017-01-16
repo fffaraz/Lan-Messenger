@@ -57,7 +57,7 @@ void RoomWindow::closeEvent(QCloseEvent *event)
     this->deleteLater();
 }
 
-void RoomWindow::updateList(QList<QString> list)
+void RoomWindow::updateList(const QList<QString> &list)
 {
     ui->listUsers->clear();
 
