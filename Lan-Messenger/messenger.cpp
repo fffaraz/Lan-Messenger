@@ -107,7 +107,7 @@ void Messenger::onReadyRead()
 void Messenger::log(const QString &data, const QString &dest, const bool isSent)
 {
     QString msg;
-    msg += isSent? "Sent     ":"Received ";
+	msg += isSent ? "Sent     " : "Received ";
     msg += QString::number(data.length()) + " bytes";
     msg += isSent? " to   ":" from ";
     QString fill;
