@@ -33,10 +33,13 @@ PMWindow::~PMWindow()
 
 void PMWindow::on_btnSend_clicked()
 {
-    emit enteredText(ui->txtInput->text());
-    ui->txtChat->append("Me: " + ui->txtInput->text());
-    ui->txtInput->clear();
-    ui->txtInput->setFocus();
+	//Send only a message, if a text is typed to avoid spam the chat window with empty messages
+	if (ui->txtInput->text() != "") {
+		emit enteredText(ui->txtInput->text());
+		ui->txtChat->append("Me: " + ui->txtInput->text());
+		ui->txtInput->clear();
+		ui->txtInput->setFocus();
+	}
 }
 
 void PMWindow::receivedPM(QString text)
