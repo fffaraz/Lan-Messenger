@@ -25,6 +25,10 @@ PMWindow::PMWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->txtInput->setFocus();
+	ui->txtChat->append("You chat now with " + this->windowTitle());
+	ui->txtChat->append("Please note that this chat is unencrypted.");
+	ui->txtChat->append("Anybody in your network can read all data sent in this conversation.");
+	ui->txtChat->append("Have a nice time!\n");
 }
 
 PMWindow::~PMWindow()
