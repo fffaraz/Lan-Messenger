@@ -23,7 +23,6 @@ PMWindow::PMWindow(const QString &title, QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::PMWindow)
 {
-	setWindowTitle(title);
     ui->setupUi(this);
     ui->txtInput->setFocus();
 	ui->txtChat->append("You chat now with " + title);
