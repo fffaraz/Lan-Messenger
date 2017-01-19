@@ -25,6 +25,7 @@ DialogOptions::DialogOptions(Messenger &messenger, QWidget *parent) :
 {
     ui->setupUi(this);
 	this->ui->leDomainName->setEnabled(false);
+	this->ui->rdDefaultHostname->setChecked(true);
 	connect(ui->rdDefaultHostname, SIGNAL(toggled(bool)), this, SLOT(defaultHostnameToggled(bool)));
 	connect(ui->leDomainName, SIGNAL(returnPressed()), this, SLOT(nameChanged()));
 }
