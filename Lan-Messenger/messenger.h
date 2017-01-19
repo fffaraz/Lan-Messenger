@@ -35,10 +35,10 @@ public:
     QString ID();
     PeerList& getPeers();
     PeerList& getRoomPeers(QString room);
-    void sendPM(QString text, QString to);
-    void sendRoom(QString text, QString room);
-    void joinRoom(QString room);
-    void leaveRoom(QString room);
+	void sendPM(const QString &text, const QString &to);
+	void sendRoom(const QString &text, const QString &room);
+	void joinRoom(const QString &room);
+	void leaveRoom(const QString &room);
     
 signals:
     void peersUpdated();
@@ -48,6 +48,7 @@ signals:
     
 public slots:
     void setName(QString name);
+	void setDomain(QString domain);
     void start();
 
 private slots:

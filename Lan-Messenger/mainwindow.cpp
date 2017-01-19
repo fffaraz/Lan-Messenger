@@ -183,7 +183,7 @@ void MainWindow::onAbout()
 
 void MainWindow::onOptions()
 {
-    DialogOptions* options = new DialogOptions();
+	DialogOptions* options = new DialogOptions(this->msgr);
     options->setWindowTitle("Options");
     options->show();
 }

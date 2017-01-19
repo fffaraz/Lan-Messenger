@@ -20,11 +20,42 @@
    <attribute name="title">
     <string>Tab 1</string>
    </attribute>
-  </widget>
-  <widget class="QWidget" name="tab">
-   <attribute name="title">
-    <string>Tab 2</string>
-   </attribute>
+   <widget class="QRadioButton" name="rdDefaultHostname">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>10</y>
+      <width>301</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Use my hostname as domain name in chats</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lblDomainName">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>40</y>
+      <width>111</width>
+      <height>18</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Domain name:</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="leDomainName">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>30</y>
+      <width>171</width>
+      <height>32</height>
+     </rect>
+    </property>
+   </widget>
   </widget>
  </widget>
  <resources/>

@@ -38,6 +38,10 @@ void Messenger::setName(QString name)
     _mypeer.Domain = QHostInfo::localHostName();
 }
 
+void Messenger::setDomain(QString domain) {
+	_mypeer.Domain = domain;
+}
+
 QString Messenger::Name()
 {
     return _mypeer.ID();
@@ -248,7 +252,7 @@ void Messenger::processTheDatagram(const QByteArray &data, const QHostAddress &s
     }
 }
 
-void Messenger::sendPM(QString text, QString to)
+void Messenger::sendPM(const QString &text, const QString &to)
 {
     QHostAddress adr;
 	for(const Peer &current : _peers)
@@ -261,7 +265,7 @@ void Messenger::sendPM(QString text, QString to)
 	_udp.writeDatagram(packet.toUtf8(), adr, this->port);
 }
 
-void Messenger::sendRoom(QString text, QString room)
+void Messenger::sendRoom(const QString &text, const QString &room)
 {
 	QString packet = PCK_HEADER + "ROOM:" + room + ":" + _mypeer.ID() + ":" + text;
     QHostAddress target = QHostAddress::Broadcast;
@@ -269,12 +273,12 @@ void Messenger::sendRoom(QString text, QString room)
 	_udp.writeDatagram(packet.toUtf8(), target, port);
 }
 
-void Messenger::joinRoom(QString room)
+void Messenger::joinRoom(const QString &room)
 {
     _rooms.append(room);
 }
 
-void Messenger::leaveRoom(QString room)
+void Messenger::leaveRoom(const QString &room)
 {
     _rooms.removeAll(room);
 }
