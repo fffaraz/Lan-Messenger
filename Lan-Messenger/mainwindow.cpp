@@ -89,7 +89,8 @@ PMWindow* MainWindow::makePMWindow(const QString &title)
 		PMWindow* newpm = new PMWindow(title);
 		this->pms.insert(title, newpm);
 		this->pmr.insert(newpm, title);
-		connect(newpm, SIGNAL(enteredText(QString)), this, SLOT(onMmsend(QString)));
+		//connect(newpm, SIGNAL(enteredText(QString)), this, SLOT(onMmsend(QString)));
+		//The previous connection
 		connect(newpm, SIGNAL(closedWindow()), this, SLOT(onPMClosed()));
 		newpm->setWindowTitle(title);
 		newpm->show();
