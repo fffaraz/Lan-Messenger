@@ -19,9 +19,9 @@
 #include "dialogoptions.hpp"
 #include "ui_dialogoptions.h"
 
-DialogOptions::DialogOptions(Messenger* messenger, QWidget *parent) :
+DialogOptions::DialogOptions(Messenger &messenger, QWidget *parent) :
     QTabWidget(parent),
-	ui(new Ui::DialogOptions), messenger(messenger)
+	ui(new Ui::DialogOptions), messenger(&messenger)
 {
     ui->setupUi(this);
 	this->ui->leDomainName->setEnabled(false);

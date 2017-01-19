@@ -31,12 +31,12 @@ class DialogOptions : public QTabWidget
         Q_OBJECT
 
     public:
-		explicit DialogOptions(Messenger* messenger, QWidget *parent = 0);
+		explicit DialogOptions(Messenger &messenger, QWidget *parent = 0);
         ~DialogOptions();
 
     private:
         Ui::DialogOptions *ui;
-		Messenger* messenger;
+		Messenger messenger;
 
 	private slots:
 		void defaultHostnameToggled(bool value);
