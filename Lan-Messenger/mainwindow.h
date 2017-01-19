@@ -66,9 +66,9 @@ private:
     QMap<QString, PMWindow*> pms;
     QMap<PMWindow*, QString> pmr;
     QMap<QString, RoomWindow*> rms;
-    QMap<RoomWindow*, QString> rmr;
-    PMWindow* makePMWindow(const QString &title);
-    RoomWindow* makeRoomWindow(const QString &title);
+	QMap<RoomWindow*, QString> rmr;
+	PMWindow* makePMWindow(const QString &title);
+	RoomWindow* makeRoomWindow(const QString &title);
 };
 
 #endif // MAINWINDOW_H

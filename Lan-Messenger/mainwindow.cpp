@@ -86,14 +86,14 @@ PMWindow* MainWindow::makePMWindow(const QString &title)
     }
     else
     {
-        PMWindow* newpm = new PMWindow();
+		PMWindow* newpm = new PMWindow(title);
 		this->pms.insert(title, newpm);
 		this->pmr.insert(newpm, title);
 		connect(newpm, SIGNAL(enteredText(QString)), this, SLOT(onMmsend(QString)));
-        connect(newpm, SIGNAL(closedWindow()), this, SLOT(onPMClosed()));
-        newpm->setWindowTitle(title);
-        newpm->show();
-        return newpm;
+		connect(newpm, SIGNAL(closedWindow()), this, SLOT(onPMClosed()));
+		newpm->setWindowTitle(title);
+		newpm->show();
+		return newpm;
     }
 }
 
@@ -106,15 +106,15 @@ RoomWindow* MainWindow::makeRoomWindow(const QString &title)
     }
     else
     {
-        RoomWindow* newrm = new RoomWindow();
+		RoomWindow* newrm = new RoomWindow();
 		this->rms.insert(title, newrm);
 		this->rmr.insert(newrm, title);
-        connect(newrm, SIGNAL(enteredText(QString)), this, SLOT(onRoomSend(QString)));
-        connect(newrm, SIGNAL(closedWindow()), this, SLOT(onRoomClosed()));
-        connect(newrm, SIGNAL(startPM(QString)), this, SLOT(onRoomPM(QString)));
-        newrm->setWindowTitle(title);
-        newrm->show();
-        return newrm;
+		connect(newrm, SIGNAL(enteredText(QString)), this, SLOT(onRoomSend(QString)));
+		connect(newrm, SIGNAL(closedWindow()), this, SLOT(onRoomClosed()));
+		connect(newrm, SIGNAL(startPM(QString)), this, SLOT(onRoomPM(QString)));
+		newrm->setWindowTitle(title);
+		newrm->show();
+		return newrm;
     }
 }
 
