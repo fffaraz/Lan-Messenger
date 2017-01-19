@@ -34,7 +34,10 @@ public:
     
 
 
-private:
+	private slots:
+		void on_textBrowser_destroyed();
+
+	private:
     Ui::DialogAbout *ui;
 };
 

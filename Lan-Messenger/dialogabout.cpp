@@ -31,3 +31,8 @@ DialogAbout::~DialogAbout()
     delete ui;
 }
 
+
+void DialogAbout::on_textBrowser_destroyed()
+{
+
+}
