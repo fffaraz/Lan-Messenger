@@ -19,16 +19,18 @@
 #include "pmwindow.h"
 #include "ui_pmwindow.h"
 
-PMWindow::PMWindow(const QString &title, QWidget *parent) :
+PMWindow::PMWindow(const QString &partner, QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::PMWindow)
 {
+	QString header("<p style=\"color:#33CC33\">");
+	QString footer("</p>");
+	QString breaker("<br />");
     ui->setupUi(this);
     ui->txtInput->setFocus();
-	ui->txtChat->append("You chat now with " + title);
-	ui->txtChat->append("Please note that this chat is unencrypted.");
-	ui->txtChat->append("Anybody in your network can read all data sent in this conversation.");
-	ui->txtChat->append("Have a nice time!\n");
+	ui->txtChat->append(header + "You chat now with " + partner + breaker +
+					 "Please note that this chat is unencrypted." +breaker  +						"Anybody in your network can read all data sent in this		conversation." + breaker + "Have a nice time!" + breaker + footer);
+	//connect(ui->btnSend, SIGNAL(clicked(bool)), this, SLOT(on_btnSend_clicked()));
 }
 
 PMWindow::~PMWindow()
