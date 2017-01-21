@@ -23,13 +23,13 @@ PMWindow::PMWindow(const QString &partner, QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::PMWindow)
 {
-	QString header("<p style=\"color:#33CC33\">");
-	QString footer("</p>");
-	QString breaker("<br />");
+	const QString header("<p style=\"color:#33CC33\">");
+	const QString footer("</p>");
+	const QString breaker("<br />");
     ui->setupUi(this);
     ui->txtInput->setFocus();
 	ui->txtChat->append(header + "You chat now with " + partner + breaker +
-					 "Please note that this chat is unencrypted." +breaker  +						"Anybody in your network can read all data sent in this		conversation." + breaker + "Have a nice time!" + breaker + footer);
+					 "Please note that this chat is unencrypted." + breaker  +						"Anybody in your network can read all data sent in this		conversation." + breaker + "Have a nice time!" + breaker + footer);
 	connect(ui->btnSend, SIGNAL(clicked(bool)), ui->txtInput, SLOT(setFocus()));
 }
 
