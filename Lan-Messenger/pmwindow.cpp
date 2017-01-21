@@ -30,7 +30,7 @@ PMWindow::PMWindow(const QString &partner, QWidget *parent) :
     ui->txtInput->setFocus();
 	ui->txtChat->append(header + "You chat now with " + partner + breaker +
 					 "Please note that this chat is unencrypted." +breaker  +						"Anybody in your network can read all data sent in this		conversation." + breaker + "Have a nice time!" + breaker + footer);
-	//connect(ui->btnSend, SIGNAL(clicked(bool)), this, SLOT(on_btnSend_clicked()));
+	connect(ui->btnSend, SIGNAL(clicked(bool)), ui->txtInput, SLOT(setFocus()));
 }
 
 PMWindow::~PMWindow()
