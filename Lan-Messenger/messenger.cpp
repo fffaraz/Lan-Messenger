@@ -69,11 +69,11 @@ void Messenger::onTimerdiscovery()
 		roomList(current);
 	}
 
-	for(int i = 0; i < _rooms.count(); i++)
+	for(int i = 0; i < _rooms.count(); ++i)
     {
         QString room = _rooms[i];
         if(!_roomslist.contains(room)) continue;
-		for(int j = 0; j < _roomslist[room].count(); j++)
+		for(int j = 0; j < _roomslist[room].count(); ++j)
             if(_roomslist[room].at(j).Lastseen.secsTo(QTime::currentTime()) > 10)
             {
                 QString name = _roomslist[room][j].ID();
@@ -164,7 +164,7 @@ void Messenger::processTheDatagram(const QByteArray &data, const QHostAddress &s
     if(packet[2] == "DISCOVERY")
     {
         int found = -1;
-		for(int i = 0; i <_peers.count(); i ++)
+		for(int i = 0; i <_peers.count(); ++i)
             if(_peers[i].ID() == packet[3]) found = i;
         if(found == -1)
         {
@@ -197,7 +197,7 @@ void Messenger::processTheDatagram(const QByteArray &data, const QHostAddress &s
             _roomslist.insert(room, PeerList());
 
         int found = -1;
-        for(int i=0; i<_roomslist[room].count(); i++)
+		for(int i=0; i<_roomslist[room].count(); ++i)
             if(_roomslist[room][i].ID() == packet[4]) found = i;
 
         if(found == -1)
@@ -228,7 +228,7 @@ void Messenger::processTheDatagram(const QByteArray &data, const QHostAddress &s
     {
         QString from = packet[3];
         QString text = packet[4];
-		for(int i = 5; i < packet.count(); i++)
+		for(int i = 5; i < packet.count(); ++i)
             text += ":" + packet[i];
         emit receivedPM(from, text);
     }
@@ -237,12 +237,12 @@ void Messenger::processTheDatagram(const QByteArray &data, const QHostAddress &s
         QString room = packet[3];
         QString from = packet[4];
         QString text = packet[5];
-		for(int i = 6; i < packet.count(); i++) {
+		for(int i = 6; i < packet.count(); ++i) {
             text += ":" + packet[i];
 		}
 
         bool found=false;
-		for(int i = 0; i < _rooms.count(); i++){
+		for(int i = 0; i < _rooms.count(); ++i){
             if(_rooms[i] == room) found = true;
 
 		}

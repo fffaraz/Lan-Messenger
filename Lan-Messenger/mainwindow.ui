@@ -33,39 +33,24 @@
      <x>0</x>
      <y>0</y>
      <width>296</width>
-     <height>21</height>
+     <height>30</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
     <property name="title">
-     <string>File</string>
+     <string>Fi&amp;le</string>
     </property>
     <addaction name="separator"/>
     <addaction name="actionExit"/>
    </widget>
-   <widget class="QMenu" name="menuEdit">
-    <property name="title">
-     <string>Edit</string>
-    </property>
-    <addaction name="actionOptions"/>
-   </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
-     <string>Help</string>
+     <string>Hel&amp;p</string>
     </property>
     <addaction name="separator"/>
     <addaction name="actionAbout"/>
    </widget>
-   <widget class="QMenu" name="menuRoom">
-    <property name="title">
-     <string>Room</string>
-    </property>
-    <addaction name="actionJoin"/>
-    <addaction name="actionList"/>
-   </widget>
    <addaction name="menuFile"/>
-   <addaction name="menuEdit"/>
-   <addaction name="menuRoom"/>
    <addaction name="menuHelp"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
@@ -76,27 +61,27 @@
   </action>
   <action name="actionAbout">
    <property name="text">
-    <string>About</string>
+    <string>&amp;About</string>
    </property>
   </action>
   <action name="actionExit">
    <property name="text">
-    <string>Exit</string>
+    <string>&amp;Exit</string>
    </property>
   </action>
   <action name="actionOptions">
    <property name="text">
-    <string>Options</string>
+    <string>&amp;Options</string>
    </property>
   </action>
   <action name="actionJoin">
    <property name="text">
-    <string>Join</string>
+    <string>&amp;Join</string>
    </property>
   </action>
   <action name="actionList">
    <property name="text">
-    <string>List</string>
+    <string>&amp;List</string>
    </property>
   </action>
  </widget>
