@@ -11,3 +11,4 @@ Lan Messenger v1.0 alpha
     Message board 
   
 
+Please not, the in the moment version no chat messeges can be received. I will get fixed.
