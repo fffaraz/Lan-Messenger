@@ -33,7 +33,7 @@ class RoomWindow : public QMainWindow
     
 public:
     explicit RoomWindow(QWidget *parent = 0);
-    void updateList(QList<QString> list);
+	void updateList(const QList<QString> &list);
     ~RoomWindow();
     
 private:

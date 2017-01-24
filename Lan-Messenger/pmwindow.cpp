@@ -1,6 +1,7 @@
 // Lan Messenger
 // Copyright (C) 2012 Faraz Fallahi <fffaraz@gmail.com>
-// 
+// Copyright (C) 2017 Sebastian Martin Dicke <Sebastianmartindicke@gmx.de>
+//
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as
 // published by the Free Software Foundation, either version 3 of the
@@ -18,12 +19,18 @@
 #include "pmwindow.h"
 #include "ui_pmwindow.h"
 
-PMWindow::PMWindow(QWidget *parent) :
+PMWindow::PMWindow(const QString &partner, QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::PMWindow)
 {
+	const QString header("<p style=\"color:#33CC33\">");
+	const QString footer("</p>");
+	const QString breaker("<br />");
     ui->setupUi(this);
     ui->txtInput->setFocus();
+	ui->txtChat->append(header + "You chat now with " + partner + breaker +
+					 "Please note that this chat is unencrypted." + breaker  +						"Anybody in your network can read all data sent in this		conversation." + breaker + "Have a nice time!" + breaker + footer);
+	connect(ui->btnSend, SIGNAL(clicked(bool)), ui->txtInput, SLOT(setFocus()));
 }
 
 PMWindow::~PMWindow()
@@ -33,10 +40,13 @@ PMWindow::~PMWindow()
 
 void PMWindow::on_btnSend_clicked()
 {
-    emit enteredText(ui->txtInput->text());
-    ui->txtChat->append("Me: " + ui->txtInput->text());
-    ui->txtInput->clear();
-    ui->txtInput->setFocus();
+	//Send only a message, if a text is typed to avoid spam the chat window with empty messages
+	if (ui->txtInput->text() != "") {
+		emit enteredText(ui->txtInput->text());
+		ui->txtChat->append("Me: " + ui->txtInput->text());
+		ui->txtInput->clear();
+		ui->txtInput->setFocus();
+	}
 }
 
 void PMWindow::receivedPM(QString text)

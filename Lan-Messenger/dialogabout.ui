@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>263</width>
-    <height>107</height>
+    <width>325</width>
+    <height>256</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,52 +15,36 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="QLabel" name="label_5">
-     <property name="text">
-      <string>&lt;b&gt;288 Lan Messenger v1.0 alpha</string>
+    <widget class="QTextBrowser" name="textBrowser">
+     <property name="toolTip">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
+     <property name="locale">
+      <locale language="English" country="UnitedStates"/>
      </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QLabel" name="label">
-     <property name="text">
-      <string>Faraz Fallahi</string>
+     <property name="verticalScrollBarPolicy">
+      <enum>Qt::ScrollBarAlwaysOff</enum>
      </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
+     <property name="horizontalScrollBarPolicy">
+      <enum>Qt::ScrollBarAlwaysOff</enum>
      </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QLabel" name="label_2">
-     <property name="text">
-      <string>&lt;a href=&quot;mailto:fffaraz@gmail.com&quot;&gt;fffaraz@gmail.com&lt;/a&gt;</string>
+     <property name="html">
+      <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Noto Sans'; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;288 LAN Messenger v1.0 alpha&lt;/p&gt;
+&lt;p align=&quot;center&quot; style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Originated by Faraz Fallahi.&lt;/p&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Development continued by Sebastian Martin Dicke.&lt;/p&gt;
+&lt;p align=&quot;center&quot; style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;288 LAN Messenger is free Software.&lt;/p&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;You can use, redistribute and modify it under the terms of the GNU Affero General Public Licence. &lt;/p&gt;
+&lt;p align=&quot;center&quot; style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;You can receive a copy of the source code and the licence text &lt;a href=&quot;https://github.com/sdicke/Lan-Messenger&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#2980b9;&quot;&gt;here&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QLabel" name="label_4">
-     <property name="text">
-      <string>&lt;a href=&quot;http://frz.ir&quot;&gt;www.288.ir&lt;/a&gt;</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QLabel" name="label_3">
-     <property name="text">
-      <string>&lt;a href=&quot;http://frz.ir&quot;&gt;www.FRZ.ir&lt;/a&gt;</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
+     <property name="openExternalLinks">
+      <bool>true</bool>
      </property>
     </widget>
    </item>

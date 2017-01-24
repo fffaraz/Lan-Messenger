@@ -24,23 +24,21 @@
 #include <QString>
 #include "peer.h"
 
-
-#define PCK_HEADER "288:0:"
-typedef QList<Peer> PeerList;
-
 class Messenger : public QObject
 {
     Q_OBJECT
 public:
+    typedef QList<Peer> PeerList;
+
     explicit Messenger(QObject *parent = 0);
     QString Name();
     QString ID();
     PeerList& getPeers();
     PeerList& getRoomPeers(QString room);
-    void sendPM(QString text, QString to);
-    void sendRoom(QString text, QString room);
-    void joinRoom(QString room);
-    void leaveRoom(QString room);
+	void sendPM(const QString &text, const QString &to);
+	void sendRoom(const QString &text, const QString &room);
+	void joinRoom(const QString &room);
+	void leaveRoom(const QString &room);
     
 signals:
     void peersUpdated();
@@ -50,6 +48,7 @@ signals:
     
 public slots:
     void setName(QString name);
+	void setDomain(QString domain);
     void start();
 
 private slots:
@@ -58,6 +57,9 @@ private slots:
 
 
 private:
+
+	const QString PCK_HEADER {"288:0:"};
+	static constexpr quint16 port = 2880;
     Peer _mypeer;
     PeerList _peers;
     QUdpSocket _udp;
@@ -65,11 +67,11 @@ private:
     QList<QHostAddress> _myips;
     QList<QString> _rooms;
     QMap<QString, PeerList> _roomslist;
-    void log(QString data, QString dest, bool isSent);
-    void logSent(QString data, QHostAddress dest);
-    void logReceived(QString data, QHostAddress dest);
-    void processTheDatagram(QByteArray data, QHostAddress sender);
-    void roomList(QString room);
+    void log(const QString &data, const QString &dest, const bool isSent);
+    void logSent(const QString &data, const QHostAddress &dest);
+    void logReceived(const QString &data, const QHostAddress &dest);
+    void processTheDatagram(const QByteArray &data, const QHostAddress &sender);
+    void roomList(const QString &room);
 };
 
 #endif // MESSENGER_H

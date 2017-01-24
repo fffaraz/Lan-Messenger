@@ -28,6 +28,7 @@
 #include "roomwindow.h"
 #include "dialogroom.h"
 #include "dialogabout.h"
+#include "dialogoptions.hpp"
 
 namespace Ui {
 class MainWindow;
@@ -42,19 +43,22 @@ public:
     ~MainWindow();
 
 private slots:
-    void onSetName(QString name);
+	void onSetName(QString name);
     void onUpdateList();
-    void onRoomListUpdated(QString room, QString msg);
-    void onPMSend(QString text);
+	void onRoomListUpdated(QString room, QString msg);
+	void onPMSend(QString text);
     void onPMClosed();
-    void onRoomSend(QString text);
+	void onRoomSend(QString text);
     void onRoomClosed();
     void onRoomPM(QString id);
     void on_listUsers_doubleClicked(const QModelIndex &index);
-    void onReceivedPM(QString from, QString text);
-    void onReceivedRoom(QString room, QString from, QString text);
-    void onJoinRoom(QString room);
+	void onReceivedPM(QString from, QString text);
+	void onReceivedRoom(QString room, QString from, QString text);
+	void onJoinRoom(QString room);
     void onMenu(QAction* action);
+    void onAbout();
+    void onOptions();
+	void onExit();
 
 private:
     Ui::MainWindow *ui;
@@ -62,9 +66,9 @@ private:
     QMap<QString, PMWindow*> pms;
     QMap<PMWindow*, QString> pmr;
     QMap<QString, RoomWindow*> rms;
-    QMap<RoomWindow*, QString> rmr;
-    PMWindow* makePMWindow(QString title);
-    RoomWindow* makeRoomWindow(QString title);
+	QMap<RoomWindow*, QString> rmr;
+	PMWindow* makePMWindow(const QString &title);
+	RoomWindow* makeRoomWindow(const QString &title);
 };
 
 #endif // MAINWINDOW_H

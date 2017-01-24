@@ -31,7 +31,7 @@ class PMWindow : public QMainWindow
     Q_OBJECT
     
 public:
-    explicit PMWindow(QWidget *parent = 0);
+	explicit PMWindow(const QString &title, QWidget *parent = 0);
     ~PMWindow();
     
 private:

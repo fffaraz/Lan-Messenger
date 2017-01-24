@@ -1,6 +1,6 @@
 // Lan Messenger
-// Copyright (C) 2012 Faraz Fallahi <fffaraz@gmail.com>
-// 
+// Copyright (C) 2016 Sebastian Martin Dicke <sebastianmartindicke@gmx.de>
+//
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as
 // published by the Free Software Foundation, either version 3 of the
@@ -13,32 +13,35 @@
 //
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
-// 
+//
 
-#ifndef DIALOGABOUT_H
-#define DIALOGABOUT_H
 
-#include <QDialog>
+#ifndef DIALOGOPTIONS_HPP
+#define DIALOGOPTIONS_HPP
+
+#include <QTabWidget>
+#include "messenger.h"
 
 namespace Ui {
-class DialogAbout;
+    class DialogOptions;
 }
 
-class DialogAbout : public QDialog
+class DialogOptions : public QTabWidget
 {
-    Q_OBJECT
-    
-public:
-    explicit DialogAbout(QWidget *parent = 0);
-    ~DialogAbout();
-    
+        Q_OBJECT
 
+    public:
+		explicit DialogOptions(Messenger &messenger, QWidget *parent = 0);
+        ~DialogOptions();
+
+    private:
+        Ui::DialogOptions *ui;
+		Messenger messenger;
 
 	private slots:
-		void on_textBrowser_destroyed();
+		void defaultHostnameToggled(bool value);
+		void nameChanged();
 
-	private:
-    Ui::DialogAbout *ui;
 };
 
-#endif // DIALOGABOUT_H
+#endif // DIALOGOPTIONS_HPP

@@ -2,7 +2,7 @@
 // Copyright (C) 2012 Faraz Fallahi <fffaraz@gmail.com>
 // 
 // This program is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Affero General Public License as
+// it under the tethis->rms of the GNU Affero General Public License as
 // published by the Free Software Foundation, either version 3 of the
 // License, or (at your option) any later version.
 //
@@ -15,52 +15,57 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // 
 
+#include <memory>
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::MainWindow)
+	QMainWindow(parent),
+	ui(new Ui::MainWindow)
 {
-    ui->setupUi(this);
-    msgr = new Messenger(this);
-    DialogNickName *dlgName = new DialogNickName(this);
-    connect(dlgName, SIGNAL(setName(QString)), this, SLOT(onSetName(QString)));
-    connect(msgr, SIGNAL(peersUpdated()), this , SLOT(onUpdateList()));
-    connect(msgr, SIGNAL(roomListUpdated(QString,QString)), this, SLOT(onRoomListUpdated(QString,QString)));
-    connect(msgr, SIGNAL(receivedPM(QString,QString)), this, SLOT(onReceivedPM(QString,QString)));
-    connect(msgr, SIGNAL(receivedRoom(QString,QString,QString)), this, SLOT(onReceivedRoom(QString,QString,QString)));
-    dlgName->setModal(true);
-    dlgName->setWindowTitle("You Nickname, Please");
-    dlgName->show();
+	this->ui->setupUi(this);
+	this->msgr = new Messenger(this);
+	DialogNickName *dlgName = new DialogNickName(this);
+	connect(dlgName, SIGNAL(setName(QString)), this, SLOT(onSetName(QString)));
+	connect(this->msgr, SIGNAL(peersUpdated()), this , SLOT(onUpdateList()));
+	connect(this->msgr, SIGNAL(roomListUpdated(QString,QString)), this, SLOT(onRoomListUpdated(QString,QString)));
+	connect(this->msgr, SIGNAL(receivedPM(QString,QString)), this, SLOT(onReceivedPM(QString,QString)));
+	connect(this->msgr, SIGNAL(receivedRoom(QString,QString,QString)), this, SLOT(onReceivedRoom(QString,QString,QString)));
+	connect(this->ui->actionAbout, SIGNAL(triggered(bool)), this, SLOT(onAbout()));
+	connect(this->ui->actionOptions, SIGNAL(triggered(bool)), this, SLOT(onOptions()));
+	connect(this->ui->actionExit, SIGNAL(triggered(bool)), this, SLOT(onExit()));
+	dlgName->setModal(true);
+	dlgName->setWindowTitle("You Nickname, Please");
+	dlgName->show();
 }
 
 MainWindow::~MainWindow()
 {
-    delete ui;
+	delete this->ui;
+	delete this->msgr;
 }
 
 void MainWindow::onSetName(QString name)
 {
-    msgr->setName(name);
-    ui->lblWelcome->setText("Welcome " + msgr->Name());
-    msgr->start();
+	this->msgr->setName(name);
+	this->ui->lblWelcome->setText("Welcome " + this->msgr->Name());
+	this->msgr->start();
 }
 
 void MainWindow::onUpdateList()
 {
-    ui->listUsers->clear();
-    QList<Peer>& peers = msgr->getPeers();
-    for(int i=0; i<peers.count(); i++)
-        ui->listUsers->addItem(peers[i].ID());
+	this->ui->listUsers->clear();
+	for (Peer &current : this->msgr->getPeers()) {
+		this->ui->listUsers->addItem(current.ID());
+	}
 }
 
 void MainWindow::onRoomListUpdated(QString room, QString msg)
 {
     QList<QString> ids;
-    QList<Peer>& peers = msgr->getRoomPeers(room);
-    for(int i=0; i<peers.count(); i++)
-        ids.append(peers[i].ID());
+	for (Peer &current : this->msgr->getRoomPeers(room)) {
+		ids.append(current.ID());
+	}
     makeRoomWindow(room)->updateList(ids);
     makeRoomWindow(room)->receivedPM("", msg);
 }
@@ -68,48 +73,49 @@ void MainWindow::onRoomListUpdated(QString room, QString msg)
 
 void MainWindow::on_listUsers_doubleClicked(const QModelIndex &index)
 {
-    QString userid = ui->listUsers->currentItem()->text();
+	QString userid = this->ui->listUsers->currentItem()->text();
     makePMWindow(userid);
 }
 
-PMWindow* MainWindow::makePMWindow(QString title)
+PMWindow* MainWindow::makePMWindow(const QString &title)
 {
-    if(pms.keys().contains(title))
+	if(this->pms.keys().contains(title))
     {
-        pms[title]->setFocus();
-        return pms[title];
+		this->pms[title]->setFocus();
+		return this->pms[title];
     }
     else
     {
-        PMWindow* newpm = new PMWindow();
-        pms.insert(title, newpm);
-        pmr.insert(newpm, title);
-        connect(newpm, SIGNAL(enteredText(QString)), this, SLOT(onPMSend(QString)));
-        connect(newpm, SIGNAL(closedWindow()), this, SLOT(onPMClosed()));
-        newpm->setWindowTitle(title);
-        newpm->show();
-        return newpm;
+		PMWindow* newpm = new PMWindow(title);
+		this->pms.insert(title, newpm);
+		this->pmr.insert(newpm, title);
+		//connect(newpm, SIGNAL(enteredText(QString)), this, SLOT(onMmsend(QString)));
+		//The previous connection
+		connect(newpm, SIGNAL(closedWindow()), this, SLOT(onPMClosed()));
+		newpm->setWindowTitle(title);
+		newpm->show();
+		return newpm;
     }
 }
 
-RoomWindow* MainWindow::makeRoomWindow(QString title)
+RoomWindow* MainWindow::makeRoomWindow(const QString &title)
 {
-    if(rms.keys().contains(title))
+	if(this->rms.keys().contains(title))
     {
-        rms[title]->setFocus();
-        return rms[title];
+		this->rms[title]->setFocus();
+		return this->rms[title];
     }
     else
     {
-        RoomWindow* newrm = new RoomWindow();
-        rms.insert(title, newrm);
-        rmr.insert(newrm, title);
-        connect(newrm, SIGNAL(enteredText(QString)), this, SLOT(onRoomSend(QString)));
-        connect(newrm, SIGNAL(closedWindow()), this, SLOT(onRoomClosed()));
-        connect(newrm, SIGNAL(startPM(QString)), this, SLOT(onRoomPM(QString)));
-        newrm->setWindowTitle(title);
-        newrm->show();
-        return newrm;
+		RoomWindow* newrm = new RoomWindow();
+		this->rms.insert(title, newrm);
+		this->rmr.insert(newrm, title);
+		connect(newrm, SIGNAL(enteredText(QString)), this, SLOT(onRoomSend(QString)));
+		connect(newrm, SIGNAL(closedWindow()), this, SLOT(onRoomClosed()));
+		connect(newrm, SIGNAL(startPM(QString)), this, SLOT(onRoomPM(QString)));
+		newrm->setWindowTitle(title);
+		newrm->show();
+		return newrm;
     }
 }
 
@@ -121,29 +127,29 @@ void MainWindow::onRoomPM(QString id)
 void MainWindow::onPMSend(QString text)
 {
     PMWindow* to = qobject_cast<PMWindow*>(sender());
-    msgr->sendPM(text, pmr[to]);
+	this->msgr->sendPM(text, this->pmr[to]);
 }
 
 void MainWindow::onRoomSend(QString text)
 {
     RoomWindow* room = qobject_cast<RoomWindow*>(sender());
-    msgr->sendRoom(text, rmr[room]);
+	this->msgr->sendRoom(text, this->rmr[room]);
 }
 
 void MainWindow::onRoomClosed()
 {
     RoomWindow* window = qobject_cast<RoomWindow*>(sender());
-    msgr->leaveRoom(rmr[window]);
-    rms.remove(rmr[window]);
-    rmr.remove(window);
+	this->msgr->leaveRoom(this->rmr[window]);
+	this->rms.remove(this->rmr[window]);
+	this->rmr.remove(window);
 }
 
 void MainWindow::onPMClosed()
 {
     PMWindow* window = qobject_cast<PMWindow*>(sender());
-    //msgr->sendPM("Closed chat window.", pmr[window]);
-    pms.remove(pmr[window]);
-    pmr.remove(window);
+	//this->msgr->sendPM("Closed chat window.", this->pmr[window]);
+	this->pms.remove(this->pmr[window]);
+	this->pmr.remove(window);
 }
 
 void MainWindow::onReceivedPM(QString from, QString text)
@@ -166,17 +172,31 @@ void MainWindow::onMenu(QAction *action)
         joinroom->setWindowTitle("Room Name");
         joinroom->show();
     }
-    if(action->text()=="About")
-    {
-        DialogAbout* about = new DialogAbout(this);
-        about->setModal(true);
-        about->setWindowTitle("About 288 L.M.");
-        about->show();
-    }
+}
+
+void MainWindow::onAbout()
+{
+    DialogAbout* about = new DialogAbout(this);
+    about->setModal(true);
+    about->setWindowTitle("About 288 L.M.");
+    about->show();
+}
+
+void MainWindow::onOptions()
+{
+	DialogOptions* options = new DialogOptions(*this->msgr);
+    options->setWindowTitle("Options");
+    options->show();
 }
 
 void MainWindow::onJoinRoom(QString room)
 {
     makeRoomWindow(room)->setFocus();
-    msgr->joinRoom(room);
+	this->msgr->joinRoom(room);
+}
+
+
+void MainWindow::onExit()
+{
+	exit(0);
 }

@@ -23,9 +23,16 @@ DialogAbout::DialogAbout(QWidget *parent) :
     ui(new Ui::DialogAbout)
 {
     ui->setupUi(this);
+
 }
 
 DialogAbout::~DialogAbout()
 {
     delete ui;
+}
+
+
+void DialogAbout::on_textBrowser_destroyed()
+{
+
 }

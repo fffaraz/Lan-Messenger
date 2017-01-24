@@ -28,7 +28,7 @@ Messenger::Messenger(QObject *parent) :
 
 void Messenger::start()
 {
-    _udp.bind(2880, QUdpSocket::ReuseAddressHint);
+	_udp.bind(this->port, QUdpSocket::ReuseAddressHint);
     _timerdiscovery.start(5000);
 }
 
@@ -38,6 +38,10 @@ void Messenger::setName(QString name)
     _mypeer.Domain = QHostInfo::localHostName();
 }
 
+void Messenger::setDomain(QString domain) {
+	_mypeer.Domain = domain;
+}
+
 QString Messenger::Name()
 {
     return _mypeer.ID();
@@ -45,10 +49,10 @@ QString Messenger::Name()
 
 void Messenger::onTimerdiscovery()
 {
-    QString packet = PCK_HEADER "DISCOVERY:" + _mypeer.ID();
+	QString packet = PCK_HEADER + "DISCOVERY:" + _mypeer.ID();
     QHostAddress target = QHostAddress::Broadcast;
     logSent(packet, target);
-    _udp.writeDatagram(packet.toUtf8(), target, 2880);
+	_udp.writeDatagram(packet.toUtf8(), target, this->port);
 
     // chekc for olds
     for(int i=0; i<_peers.count(); i++)
@@ -61,12 +65,15 @@ void Messenger::onTimerdiscovery()
     // room list
     for(int i=0; i<_rooms.count(); i++)
         roomList(_rooms[i]);
+	for (const QString &current: _rooms) {
+		roomList(current);
+	}
 
-    for(int i=0; i<_rooms.count(); i++)
+	for(int i = 0; i < _rooms.count(); ++i)
     {
         QString room = _rooms[i];
         if(!_roomslist.contains(room)) continue;
-        for(int j=0; j<_roomslist[room].count(); j++)
+		for(int j = 0; j < _roomslist[room].count(); ++j)
             if(_roomslist[room].at(j).Lastseen.secsTo(QTime::currentTime()) > 10)
             {
                 QString name = _roomslist[room][j].ID();
@@ -88,9 +95,10 @@ void Messenger::onReadyRead()
         _udp.readDatagram(datagram.data(), datagram.size(), &sender, &senderPort);
 
         bool flag = true;
-        for(int i=0; i < _myips.count(); ++i)
-            if(sender.toString() == _myips[i].toString())
+		for(const QHostAddress &current : _myips)
+			if(sender.toString() == current.toString()) {
                 flag = false;
+			}
 
         if (flag)
         {
@@ -100,10 +108,10 @@ void Messenger::onReadyRead()
     }
 }
 
-void Messenger::log(QString data, QString dest, bool isSent)
+void Messenger::log(const QString &data, const QString &dest, const bool isSent)
 {
     QString msg;
-    msg += isSent? "Sent     ":"Received ";
+	msg += isSent ? "Sent     " : "Received ";
     msg += QString::number(data.length()) + " bytes";
     msg += isSent? " to   ":" from ";
     QString fill;
@@ -114,31 +122,31 @@ void Messenger::log(QString data, QString dest, bool isSent)
     return;
 }
 
-void Messenger::logSent(QString data, QHostAddress dest)
+void Messenger::logSent(const QString &data, const QHostAddress &dest)
 {
     return log(data, dest.toString(), true);
 }
 
-void Messenger::logReceived(QString data, QHostAddress dest)
+void Messenger::logReceived(const QString &data, const QHostAddress &dest)
 {
     return log(data, dest.toString(), false);
 }
 
-PeerList& Messenger::getPeers()
+Messenger::PeerList& Messenger::getPeers()
 {
     return _peers;
 }
 
-PeerList& Messenger::getRoomPeers(QString room)
+Messenger::PeerList& Messenger::getRoomPeers(QString room)
 {
     return _roomslist[room];
 }
 
-void Messenger::processTheDatagram(QByteArray data, QHostAddress sender)
+void Messenger::processTheDatagram(const QByteArray &data, const QHostAddress &sender)
 {
     QString str_packet = QString(data);
     QStringList packet = str_packet.split(':');
-    if(packet.count()<4)
+	if(packet.count() < 4)
     {
         qWarning("Warning: Unknown Packet. ");
         return;
@@ -156,7 +164,7 @@ void Messenger::processTheDatagram(QByteArray data, QHostAddress sender)
     if(packet[2] == "DISCOVERY")
     {
         int found = -1;
-        for(int i=0; i<_peers.count(); i++)
+		for(int i = 0; i <_peers.count(); ++i)
             if(_peers[i].ID() == packet[3]) found = i;
         if(found == -1)
         {
@@ -189,7 +197,7 @@ void Messenger::processTheDatagram(QByteArray data, QHostAddress sender)
             _roomslist.insert(room, PeerList());
 
         int found = -1;
-        for(int i=0; i<_roomslist[room].count(); i++)
+		for(int i=0; i<_roomslist[room].count(); ++i)
             if(_roomslist[room][i].ID() == packet[4]) found = i;
 
         if(found == -1)
@@ -220,7 +228,7 @@ void Messenger::processTheDatagram(QByteArray data, QHostAddress sender)
     {
         QString from = packet[3];
         QString text = packet[4];
-        for(int i=5; i<packet.count(); i++)
+		for(int i = 5; i < packet.count(); ++i)
             text += ":" + packet[i];
         emit receivedPM(from, text);
     }
@@ -229,54 +237,58 @@ void Messenger::processTheDatagram(QByteArray data, QHostAddress sender)
         QString room = packet[3];
         QString from = packet[4];
         QString text = packet[5];
-        for(int i=6; i<packet.count(); i++)
+		for(int i = 6; i < packet.count(); ++i) {
             text += ":" + packet[i];
+		}
 
         bool found=false;
-        for(int i=0;i<_rooms.count(); i++)
+		for(int i = 0; i < _rooms.count(); ++i){
             if(_rooms[i] == room) found = true;
 
-        if(found)
+		}
+		if(found){
             emit receivedRoom(room, from, text);
+		}
     }
 }
 
-void Messenger::sendPM(QString text, QString to)
+void Messenger::sendPM(const QString &text, const QString &to)
 {
     QHostAddress adr;
-    for(int i=0; i<_peers.count(); i++)
+	for(const Peer &current : _peers)
     {
-        if(_peers[i].ID() == to)
-            adr = _peers[i].Host;
+		if(static_cast<Peer>(current).ID() == to)
+			adr = current.Host;
     }
-    QString packet = PCK_HEADER "PM:" + _mypeer.ID() + ":" + text;
+	QString packet = PCK_HEADER + "PM:" + _mypeer.ID() + ":" + text;
     logSent(packet, adr);
-    _udp.writeDatagram(packet.toUtf8(), adr, 2880);
+	_udp.writeDatagram(packet.toUtf8(), adr, this->port);
 }
 
-void Messenger::sendRoom(QString text, QString room)
+void Messenger::sendRoom(const QString &text, const QString &room)
 {
-    QString packet = PCK_HEADER "ROOM:" + room + ":" + _mypeer.ID() + ":" + text;
+	QString packet = PCK_HEADER + "ROOM:" + room + ":" + _mypeer.ID() + ":" + text;
     QHostAddress target = QHostAddress::Broadcast;
     logSent(packet, target);
-    _udp.writeDatagram(packet.toUtf8(), target, 2880);
+	_udp.writeDatagram(packet.toUtf8(), target, port);
 }
 
-void Messenger::joinRoom(QString room)
+void Messenger::joinRoom(const QString &room)
 {
     _rooms.append(room);
 }
 
-void Messenger::leaveRoom(QString room)
+void Messenger::leaveRoom(const QString &room)
 {
     _rooms.removeAll(room);
 }
 
-void Messenger::roomList(QString room)
+void Messenger::roomList(const QString &room)
 {
-    QString packet = PCK_HEADER "ROOMLIST:" + room + ":" + _mypeer.ID();
+	QString packet = PCK_HEADER + "ROOMLIST:" + room + ":" + _mypeer.ID();
     QHostAddress target = QHostAddress::Broadcast;
     logSent(packet, target);
-    _udp.writeDatagram(packet.toUtf8(), target, 2880);
+	_udp.writeDatagram(packet.toUtf8(), target, this->port);
 }
+
 

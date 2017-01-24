@@ -57,11 +57,13 @@ void RoomWindow::closeEvent(QCloseEvent *event)
     this->deleteLater();
 }
 
-void RoomWindow::updateList(QList<QString> list)
+void RoomWindow::updateList(const QList<QString> &list)
 {
     ui->listUsers->clear();
-    for(int i=0; i<list.count(); i++)
-        ui->listUsers->addItem(list[i]);
+
+	for (const QString &current : list) {
+		ui->listUsers->addItem(current);
+	}
 }
 
 
