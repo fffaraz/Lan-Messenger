@@ -15,4 +15,5 @@ Website : http://cms.frz.ir/lan-messenger/
 
 Download : http://frz.ir/dl/projects/Lan-Messenger/LanMessenger-VOIP.7z
 
-https://github.com/unsky/cortfly
+* https://github.com/unsky/cortfly
+* https://github.com/sdicke/Lan-Messenger
